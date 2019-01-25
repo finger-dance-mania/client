@@ -22,10 +22,6 @@
         @keyup.37="key('left')"
         @keyup.39="key('right')"
       >
-      <!-- <b-button @click="play">
-        click me
-      </b-button> -->
-    
     </div>
   </div>
 </template>

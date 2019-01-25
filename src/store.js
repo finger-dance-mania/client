@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     rooms: [],
     roomId: '',
-    arrowList: []
+    arrowList: [],
+    username: ''
   },
   mutations: {
     createRoomMt (state, payload) {
@@ -20,11 +21,18 @@ export default new Vuex.Store({
     },
     mutateArrows (state, listArrow) {
       state.arrowList = listArrow
+    },
+    setUname (state, name) {
+      state.username = name
+    },
+    mutateLogOut (state) {
+      state.username = null
     }
   },
   actions: {
     register ({ commit }, name) {
       localStorage.setItem('username', name)
+      commit('setUname', name)
     },
     getArrows ({commit}) {
       db.collection('arrows')
@@ -33,7 +41,7 @@ export default new Vuex.Store({
           querySnapshot.forEach((doc) => {
               listArrow.push(doc.data().key)
           });
-          console.log("Current cities in CA: ", listArrow)
+          // console.log("Current cities in CA: ", listArrow)
           commit('mutateArrows', listArrow)
       });
     },
@@ -92,6 +100,10 @@ export default new Vuex.Store({
            }
           }
         })
-      }
+    },
+    logout ({commit}) {
+      localStorage.removeItem('username')
+      commit('mutateLogOut')
+    }
   }
 })
