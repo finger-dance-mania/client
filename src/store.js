@@ -3,11 +3,11 @@ import Vuex from 'vuex'
 import db from './config.js'
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
   state: {
     rooms: [],
-    roomId: ''
+    roomId: '',
+    arrowList: []
   },
   mutations: {
     createRoomMt (state, payload) {
@@ -17,9 +17,26 @@ export default new Vuex.Store({
     getRoomMt (state, payload) {
       // console.log(payload)
       state.rooms = payload
+    },
+    mutateArrows (state, listArrow) {
+      state.arrowList = listArrow
     }
   },
   actions: {
+    register ({ commit }, name) {
+      localStorage.setItem('username', name)
+    },
+    getArrows ({commit}) {
+      db.collection('arrows')
+      .onSnapshot((querySnapshot) => {
+          var listArrow = [];
+          querySnapshot.forEach((doc) => {
+              listArrow.push(doc.data().key)
+          });
+          console.log("Current cities in CA: ", listArrow)
+          commit('mutateArrows', listArrow)
+      });
+    },
     createRoomAct ({ commit }, room) {
       let res = {
         title: room.title,
@@ -75,6 +92,6 @@ export default new Vuex.Store({
            }
           }
         })
-    }
+      }
   }
 })
