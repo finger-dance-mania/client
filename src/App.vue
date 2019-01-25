@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <embed name="music" src="http://bit.ly/2GLdmiu" loop="false" hidden="true" autostart="true">
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>

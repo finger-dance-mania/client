@@ -2,11 +2,11 @@
     <div class="bg-dark text-white" style="height: 100vh">
         <b-row>
             <div class="col text-left ml-3">
-                <h4 class="mt-3">My Points:</h4>
+                <h4 class="mt-3">{{ player1 }}:</h4>
                 <b-progress :value="value" class="w-50 mt-2" style="height: 30px"></b-progress>
             </div>
             <div class="col text-right mr-5">
-                 <h4 class="mt-3">Enemy Points:</h4>
+                 <h4 class="mt-3">{{ player2 }}:</h4>
                 <b-progress :value="value" class="w-50 mt-2 float-right" style="height: 30px"></b-progress>
             </div>
         </b-row>
@@ -22,9 +22,8 @@
 </template>
 
 <script>
-
 import test from './test.vue'
-
+import { mapState} from 'vuex'
 export default {
     name: 'room',
     components: {
@@ -32,9 +31,13 @@ export default {
     },
     data () {
         return {
-            value: 50
+            value: 0
         }
-    }
+    },
+    computed: mapState([
+      'player1', 'player2'
+  ])
+  
 }
 </script>
 
