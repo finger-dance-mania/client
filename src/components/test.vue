@@ -28,6 +28,8 @@
 
 <script>
 import {mapState} from 'vuex'
+import db from '../config.js'
+
 export default {
   name: "HelloWorld",
   props: {
@@ -56,21 +58,25 @@ export default {
           this.type = ''
           this.data.shift();
           this.data[0].status = 'success'
+          console.log(this.$route.params.id)
+          this.$store.dispatch('pluspoint', this.$route.params.id)
         }
       } else {
-        this.statusPlaying = false;
+        this.$store.dispatch('deleteRoom', this.$route.params.id)
       }
     },
     play () {
       let audi = new Audio('http://soundbible.com/grab.php?id=1127&type=mp3')
       audi.play()
-    }
+    },
+    
   },
   created () {
     this.$store.dispatch('getArrows')
+    this.$store.dispatch('watchData', this.$route.params.id)
   }, 
   computed: mapState ([
-    'arrowList'
+    'arrowList', 'statusRoom','point1', "point2", "player1", "player2"
   ]),
   watch : {
     arrowList (val) {
@@ -87,6 +93,40 @@ export default {
         this.data2 = this.data.slice(0, 4)
       } else {
         this.data2 = this.data
+      }
+    },
+    point1(val){
+      console.log('watch')
+      if(val >= 120){
+        swal({
+          title: `${this.player1} WIN!`,
+          text: "Good Job!",
+          icon: "success",
+          button: "Aww yiss!"
+        })
+          .then((newgame) => {
+            if (newgame) {
+              this.$store.dispatch('deleteRoom', this.$route.params.id)
+              this.$router.push('/')
+            }
+          });
+      }
+    },
+    point2(val){
+      console.log('watch')
+      if(val >= 120){
+        swal({
+          title: `${this.player2} WIN!`,
+          text: "Good Job!",
+          icon: "success",
+          button: "Aww yiss!"
+        })
+          .then((newgame) => {
+            if (newgame) {
+              this.$store.dispatch('deleteRoom', this.$route.params.id)
+              this.$router.push('/')
+            }
+          });
       }
     }
   }
