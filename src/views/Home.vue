@@ -11,11 +11,6 @@
 // @ is an alias to /src
 import Lobby from '@/components/Lobby.vue'
 import FormRoom from '@/components/FormNewRoom.vue'
-<<<<<<< HEAD
-// import room from '@/components/room2.vue'
-=======
-// import Room from '@/components/Room.vue'
->>>>>>> tes
 import register from '@/components/register.vue'
 import { mapState } from 'vuex'
 
@@ -28,11 +23,7 @@ export default {
   components: {
     Lobby,
     FormRoom,
-<<<<<<< HEAD
-    // room,
-=======
     // Room,
->>>>>>> tes
     register,
   },
   computed: mapState([

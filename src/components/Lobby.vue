@@ -51,7 +51,6 @@ export default {
       this.$store.dispatch('getRoomAct')
     },
     joinRoom: function (roomId) {
-      
       this.$store.dispatch('joinRoomAct', roomId)
       this.$router.push(`/room/${roomId}`)
     }
